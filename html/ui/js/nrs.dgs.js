@@ -787,7 +787,7 @@ var NRS = (function(NRS, $) {
 			return;
 		}
 
-		$("#my_dgs_listings_table").find("tr[data-goods=" + String(data.goods).escapeHTML() + "]").addClass("tentative").find(".price").html(NRS.formatAmount(data.priceNQT) + " NXT");
+		$("#my_dgs_listings_table").find("tr[data-goods=" + String(data.goods).escapeHTML() + "]").addClass("tentative").find(".price").html(NRS.formatAmount(data.priceNQT) + " GEC");
 	};
 
 	NRS.forms.dgsRefundComplete = function(response, data) {
@@ -1075,11 +1075,11 @@ var NRS = (function(NRS, $) {
 				$modal.find("input[name=recipient]").val(response.sellerRS);
 
 				$("#dgs_purchase_price").val(String(response.priceNQT).escapeHTML());
-				$("#dgs_total_purchase_price").html(NRS.formatAmount(response.priceNQT) + " NXT");
+				$("#dgs_total_purchase_price").html(NRS.formatAmount(response.priceNQT) + " GEC");
 
 				$("#dgs_purchase_quantity").on("change", function() {
 					var totalNQT = new BigInteger(response.priceNQT).multiply(new BigInteger(String($(this).val()))).toString();
-					$("#dgs_total_purchase_price").html(NRS.formatAmount(totalNQT) + " NXT");
+					$("#dgs_total_purchase_price").html(NRS.formatAmount(totalNQT) + " GEC");
 				});
 			}
 			}

@@ -216,18 +216,18 @@
                 }), defaultBuffer = buffer.join(""), focusText = input.val();
                 input.bind("keyup.remask", function(e) {
                     if (input.val().toLowerCase() == "nxt-") {
-                        input.val("").mask("NXT-****-****-****-*****")./*unbind(".remask").*/trigger("focus");
+                        input.val("").mask("GEC-****-****-****-*****")./*unbind(".remask").*/trigger("focus");
                     }
                 }).bind("paste.remask", function(e) {
                     setTimeout(function() {
                         var newInput = input.val();
                         var pastedData = newInput.substring(4).toUpperCase();
-                        if (/NXT\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{5}/i.test(pastedData)) {
-                            var newAddress = String(pastedData.match("NXT\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{5}"));
+                        if (/GEC\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{5}/i.test(pastedData)) {
+                            var newAddress = String(pastedData.match("GEC\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{5}"));
                             input.val(newAddress);
                             checkVal(true);
-                        } else if (/^NXT\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{5}/i.test(newInput) || /^NXT[A-Z0-9]{17}/i.test(newInput)) {
-                            input.mask("NXT-****-****-****-*****").trigger("checkRecipient")/*.unbind(".remask")*/;
+                        } else if (/^GEC\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{5}/i.test(newInput) || /^GEC[A-Z0-9]{17}/i.test(newInput)) {
+                            input.mask("GEC-****-****-****-*****").trigger("checkRecipient")/*.unbind(".remask")*/;
                         }
                     }, 0);
                 });

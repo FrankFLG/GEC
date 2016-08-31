@@ -299,7 +299,7 @@ var NRS = (function(NRS, $) {
         }, function (response) {
             var fee = NRS.convertToNXT(String(response.feeNQT).escapeHTML());
             $('#extend_data_fee').val(fee);
-            $('#extend_data_fee_label').html(String(fee) + " NXT");
+            $('#extend_data_fee_label').html(String(fee) + " GEC");
         })
     });
 

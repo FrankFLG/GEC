@@ -305,7 +305,7 @@ var NRS = (function(NRS, $) {
             if (data) {
                 for (var i = 0; i < data.length; i++) {
                     var transaction = data[i];
-                    if (String(transaction.curIn).escapeHTML() != "NXT" && String(transaction.curOut).escapeHTML() != "NXT") {
+                    if (String(transaction.curIn).escapeHTML() != "GEC" && String(transaction.curOut).escapeHTML() != "GEC") {
                         continue;
                     }
                     rows += "<tr>";
@@ -408,8 +408,6 @@ var NRS = (function(NRS, $) {
     NRS.getFundAccountLink = function() {
         return "<div class='callout callout-danger'>" +
             "<span>" + $.t("fund_account_warning_1") + "</span><br>" +
-            "<span>" + $.t("fund_account_warning_2") + "</span><br>" +
-            "<span>" + $.t("fund_account_warning_3") + "</span><br>" +
             "</div>" +
             "<a href='#' class='btn btn-xs btn-default' data-toggle='modal' data-target='#m_send_amount_sell_modal' " +
             "data-pair='BTC_NXT'>" + $.t("fund_account_message") + "</a>";
@@ -436,11 +434,11 @@ var NRS = (function(NRS, $) {
         NRS.logConsole("modal invoked pair " + pair + " coin " + coin);
         $("#m_shape_shift_buy_title").html($.t("exchange_nxt_to_coin_shift", { coin: coin }));
         $("#m_shape_shift_buy_min").val(invoker.data("min"));
-        $("#m_shape_shift_buy_min_coin").html("NXT");
+        $("#m_shape_shift_buy_min_coin").html("GEC");
         $("#m_shape_shift_buy_max").val(invoker.data("max"));
-        $("#m_shape_shift_buy_max_coin").html("NXT");
+        $("#m_shape_shift_buy_max_coin").html("GEC");
         $("#m_shape_shift_buy_rate").val(invoker.data("rate"));
-        $("#m_shape_shift_buy_rate_text").html("NXT/" + coin);
+        $("#m_shape_shift_buy_rate_text").html("GEC/" + coin);
         $("#m_shape_shift_withdrawal_address_coin").html(coin);
         $("#m_shape_shift_buy_fee").val(invoker.data("fee"));
         $("#m_shape_shift_buy_fee_coin").html(coin);
@@ -510,7 +508,7 @@ var NRS = (function(NRS, $) {
         NRS.logConsole("modal invoked pair " + pair + " coin " + coin);
         $("#m_send_amount_buy_title").html($.t("exchange_nxt_to_coin_send_amount", { coin: coin }));
         $("#m_send_amount_buy_withdrawal_amount_coin").html(coin);
-        $("#m_send_amount_buy_rate_text").html("NXT/" + coin);
+        $("#m_send_amount_buy_rate_text").html("GEC/" + coin);
         $("#m_send_amount_withdrawal_address_coin").html(coin + " address");
         $("#m_send_amount_buy_fee_coin").html(coin);
         $("#m_send_amount_buy_pair").val(pair);
@@ -710,9 +708,9 @@ var NRS = (function(NRS, $) {
         var coin = pairToCoin(pair);
         NRS.logConsole("modal invoked pair " + pair + " coin " + coin);
         $("#m_send_amount_sell_title").html($.t("exchange_coin_to_nxt_send_amount", { coin: coin }));
-        $("#m_send_amount_sell_rate_text").html("NXT/" + coin);
-        $("#m_send_amount_sell_fee_coin").html("NXT");
-        $("#m_send_amount_sell_withdrawal_amount_coin").html("NXT");
+        $("#m_send_amount_sell_rate_text").html("GEC/" + coin);
+        $("#m_send_amount_sell_fee_coin").html("GEC");
+        $("#m_send_amount_sell_withdrawal_amount_coin").html("GEC");
         $("#m_send_amount_sell_deposit_amount_coin").html(coin);
         $("#m_send_amount_sell_deposit_address").html("");
         $("#m_send_amount_sell_qr_code").html("");

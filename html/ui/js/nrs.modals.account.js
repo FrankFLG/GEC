@@ -77,7 +77,7 @@ var NRS = (function(NRS, $) {
 		if (account.unconfirmedBalanceNQT == "0") {
 			$("#user_info_modal_account_balance").html("0");
 		} else {
-			$("#user_info_modal_account_balance").html(NRS.formatAmount(account.unconfirmedBalanceNQT) + " NXT");
+			$("#user_info_modal_account_balance").html(NRS.formatAmount(account.unconfirmedBalanceNQT) + " GEC");
 		}
 
 		if (account.name) {
@@ -161,7 +161,7 @@ var NRS = (function(NRS, $) {
 					var transaction = response.transactions[i];
                     var transactionType = getTransactionType(transaction);
                     var receiving;
-					if (/^NXT\-/i.test(String(NRS.userInfoModal.user))) {
+					if (/^GEC\-/i.test(String(NRS.userInfoModal.user))) {
 						receiving = (transaction.recipientRS == NRS.userInfoModal.user);
 					} else {
 						receiving = (transaction.recipient == NRS.userInfoModal.user);
@@ -256,7 +256,7 @@ var NRS = (function(NRS, $) {
 					if (good.name.length > 150) {
 						good.name = good.name.substring(0, 150) + "...";
 					}
-					rows += "<tr><td><a href='#' data-goto-goods='" + String(good.goods).escapeHTML() + "' data-seller='" + String(NRS.userInfoModal.user).escapeHTML() + "'>" + String(good.name).escapeHTML() + "</a></td><td>" + NRS.formatAmount(good.priceNQT) + " NXT</td><td>" + NRS.format(good.quantity) + "</td></tr>";
+					rows += "<tr><td><a href='#' data-goto-goods='" + String(good.goods).escapeHTML() + "' data-seller='" + String(NRS.userInfoModal.user).escapeHTML() + "'>" + String(good.name).escapeHTML() + "</a></td><td>" + NRS.formatAmount(good.priceNQT) + " GEC</td><td>" + NRS.format(good.quantity) + "</td></tr>";
 				}
 			}
             var infoModalMarketplaceTable = $("#user_info_modal_marketplace_table");
