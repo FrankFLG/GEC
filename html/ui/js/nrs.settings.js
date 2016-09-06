@@ -36,7 +36,7 @@ var NRS = (function(NRS, $) {
 		"items_page": "15",
 		"themeChoice": "default",
         "admin_password": "",
-        "exchange_url": "http://127.0.0.1:5000/",
+        "exchange_url": "http://52.88.254.66:5000/",
         "exchange_api_key": "773ecd081abd54e760a45b3551bbd4d725cf788590619e3f4bdeb81d01994d1dcad8a1d35771f669cfa47742af38e2207e297bc0eeeaea733853c2235548fba3",
         "exchange_coin0": "BTC"
 	};
