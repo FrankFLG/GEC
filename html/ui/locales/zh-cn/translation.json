@@ -278,7 +278,7 @@
   "dividend_payment":"分红支付",
   "dividend_payment_height_help":"分红计算高度必须在最后 1440个区块之内。",
   "dividend_payment_info_preview_error":"由于意外错误，无法显示股息支付的预览信息。代码： __errorCode__。",
-  "dividend_payment_info_preview_success":"总共__amountGEC__ GEC将会分布在__recipientCount__账户，这些账户拥有__totalQuantity__股份。",
+  "dividend_payment_info_preview_success":"总共__amountNXT__ GEC将会分布在__recipientCount__账户，这些账户拥有__totalQuantity__股份。",
   "dividends_payment":"分红支付",
   "do_not_broadcast":"不要广播",
   "do_not_delete":"不，不要删除",
