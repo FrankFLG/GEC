@@ -26,7 +26,7 @@ var NRS = (function(NRS, $) {
 
     var getCoins = function() {
         var coins = [];
-        for (var i=0; i<3; i++) {
+        for (var i=0; i<1; i++) {
             coins.push(NRS.settings["exchange_coin" + i]);
         }
         return coins;
@@ -298,30 +298,6 @@ var NRS = (function(NRS, $) {
         });
     };
 
-    function renderRecentTable() {
-        apiCall('recenttx/50', {}, 'GET', function (data) {
-            NRS.logConsole("recent");
-            var rows = "";
-            if (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var transaction = data[i];
-                    if (String(transaction.curIn).escapeHTML() != "GEC" && String(transaction.curOut).escapeHTML() != "GEC") {
-                        continue;
-                    }
-                    rows += "<tr>";
-                    rows += "<td>" + String(transaction.curIn).escapeHTML() + "</td>";
-                    rows += "<td>" + String(transaction.curOut).escapeHTML() + "</td>";
-                    rows += "<td>" + NRS.formatTimestamp(1000 * transaction.timestamp, false, true) + "</td>";
-                    rows += "<td>" + transaction.amount + "</td>";
-                    rows += "</tr>";
-                }
-            }
-            NRS.logConsole("recent rows " + rows);
-            var table = $("#p_shape_shift_table");
-            table.find("tbody").empty().append(rows);
-            NRS.dataLoadFinished(table);
-        });
-    }
 
     function renderNxtLimit() {
         apiCall('limit/nxt_btc', {}, 'GET', function (data) {
@@ -333,6 +309,20 @@ var NRS = (function(NRS, $) {
         });
     }
 
+    function renderBTCAddress(){
+        console.log(NRS.accountRS);
+        var account = NRS.accountRS;
+        apiCall('getAddress', {account:account}, 'GET', function (data){
+               $('#btc_address').val(String(data.address));
+               NRS.sendRequestQRCode("#qr_code", data.address, 125, 125);
+           });
+
+        apiCall('getStatus', {}, 'GET', function(data) {
+            $('#gec_exchange_status').html(String((data && data.suspended) ? "SUSPENDED" : "ACTIVE"));
+            $('#currencyCode').html(String(data && data.currencyCode));
+        });
+    }
+
     function loadCoins() {
         var inputFields = [];
         inputFields.push($('#shape_shift_coin_0'));
@@ -340,8 +330,6 @@ var NRS = (function(NRS, $) {
         inputFields.push($('#shape_shift_coin_2'));
         var selectedCoins = [];
         selectedCoins.push(NRS.settings.exchange_coin0);
-        selectedCoins.push(NRS.settings.exchange_coin1);
-        selectedCoins.push(NRS.settings.exchange_coin2);
         apiCall('getcoins', {}, 'GET', function (data) {
             SUPPORTED_COINS = data;
             for (var i = 0; i < inputFields.length; i++) {
@@ -368,21 +356,23 @@ var NRS = (function(NRS, $) {
         var exchangePageHeader = $("#exchange_page_header");
         var exchangePageContent = $("#exchange_page_content");
         if (NRS.settings.exchange != "1") {
-			exchangeDisabled.show();
-            exchangePageHeader.hide();
-            exchangePageContent.hide();
-            return;
+            NRS.updateSettings("exchange", "1");
+			//exchangeDisabled.show();
+            //exchangePageHeader.hide();
+            //exchangePageContent.hide();
+            //return;
 		}
         exchangeDisabled.hide();
         exchangePageHeader.show();
         exchangePageContent.show();
         NRS.pageLoading();
-        loadCoins();
-        renderNxtLimit();
-        renderExchangeTable("buy");
-        renderExchangeTable("sell");
-        renderMyExchangesTable();
-        renderRecentTable();
+        //loadCoins();
+        //renderNxtLimit();
+        //renderExchangeTable("buy");
+        //renderExchangeTable("sell");
+        renderBTCAddress();
+        //renderMyExchangesTable();
+        //renderRecentTable();
         NRS.pageLoaded();
         setTimeout(refreshPage, 60000);
     };
@@ -627,9 +617,9 @@ var NRS = (function(NRS, $) {
                 $("#m_shape_shift_sell_max").val(data.max);
                 $("#m_shape_shift_sell_max_coin").html(coin);
                 $("#m_shape_shift_sell_rate").val(data.rate);
-                $("#m_shape_shift_sell_rate_text").html(coin + "/NXT");
+                $("#m_shape_shift_sell_rate_text").html(coin + "/GEC");
                 $("#m_shape_shift_sell_fee").val(data.fee);
-                $("#m_shape_shift_sell_fee_coin").html("NXT");
+                $("#m_shape_shift_sell_fee_coin").html("GEC");
                 $("#m_shape_shift_sell_pair").val(pair);
                 var publicKey = NRS.publicKey;
                 if (publicKey == "" && NRS.accountInfo) {
