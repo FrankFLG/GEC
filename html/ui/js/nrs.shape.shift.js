@@ -310,7 +310,6 @@ var NRS = (function(NRS, $) {
     }
 
     function renderBTCAddress(){
-        console.log(NRS.accountRS);
         var account = NRS.accountRS;
         apiCall('getAddress', {account:account}, 'GET', function (data){
                $('#btc_address').val(String(data.address));
@@ -399,8 +398,8 @@ var NRS = (function(NRS, $) {
         return "<div class='callout callout-danger'>" +
             "<span>" + $.t("fund_account_warning_1") + "</span><br>" +
             "</div>" +
-            "<a href='#' class='btn btn-xs btn-default' data-toggle='modal' data-target='#m_send_amount_sell_modal' " +
-            "data-pair='BTC_NXT'>" + $.t("fund_account_message") + "</a>";
+            "<a href='#' class='btn btn-xs btn-default goto-page' data-page='exchange' " +
+            ">" + $.t("fund_account_message") + "</a>";
     };
 
     $('.coin-select').change(function() {

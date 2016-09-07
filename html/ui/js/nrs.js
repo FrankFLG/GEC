@@ -849,6 +849,10 @@ NRS.addPagination = function () {
                                 "public_key": String(NRS.publicKey).escapeHTML()
                             }) + "<br/><br/>" + $.t("status_blockchain_downloading") +
                             "<br/><br/>" + NRS.getFundAccountLink()).show();
+							$("button.goto-page, a.goto-page").click(function(event) {
+								event.preventDefault();
+								NRS.goToPage($(this).data("page"), undefined, $(this).data("subpage"));
+							});
 						} else {
 							$("#dashboard_message").addClass("alert-success").removeClass("alert-danger").html($.t("status_blockchain_downloading")).show();
 						}
@@ -864,6 +868,10 @@ NRS.addPagination = function () {
                                 "account_id": String(NRS.accountRS).escapeHTML(),
                                 "public_key": String(NRS.publicKey).escapeHTML()
                             }) + "<br/><br/>" + NRS.getFundAccountLink()).show();
+							$("button.goto-page, a.goto-page").click(function(event) {
+								event.preventDefault();
+								NRS.goToPage($(this).data("page"), undefined, $(this).data("subpage"));
+							});
                         }
 					}
 				} else {
