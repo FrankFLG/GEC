@@ -44,7 +44,7 @@ public class APITestServlet extends HttpServlet {
             "    <meta charset='UTF-8'/>\n" +
             "    <meta http-equiv='X-UA-Compatible' content='IE=edge'>\n" +
             "    <meta name='viewport' content='width=device-width, initial-scale=1'>\n" +
-            "    <title>Nxt http API</title>\n" +
+            "    <title>GEC http API</title>\n" +
             "    <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css' />\n" +
             "    <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css' />\n" +
             "    <link href='css/highlight.style.css' rel='stylesheet' type='text/css' />\n" +
@@ -58,11 +58,11 @@ public class APITestServlet extends HttpServlet {
             "<div class='navbar navbar-default' role='navigation'>\n" +
             "   <div class='container' style='min-width: 90%;'>\n" +
             "       <div class='navbar-header'>\n" +
-            "           <a class='navbar-brand' href='/test'>Nxt http API</a>\n" +
+            "           <a class='navbar-brand' href='/test'>GEC http API</a>\n" +
             "       </div>\n" +
             "       <div class='navbar-collapse collapse'>\n" +
             "           <ul class='nav navbar-nav navbar-right'>\n" +
-            "               <li><input type='text' class='form-control' id='search' " + 
+            "               <li><input type='text' class='form-control' id='search' " +
             "                    placeholder='Search' style='margin-top:8px;'></li>\n" +
             "               <li><a href='https://nxtwiki.org/wiki/The_Nxt_API' target='_blank' style='margin-left:20px;'>Wiki Docs</a></li>\n" +
             "           </ul>\n" +
@@ -142,7 +142,7 @@ public class APITestServlet extends HttpServlet {
         StringBuilder buf = new StringBuilder();
         String requestTag = Convert.nullToEmpty(req.getParameter("requestTag"));
         buf.append("<li");
-        if (requestTag.equals("") 
+        if (requestTag.equals("")
                 & !req.getParameterMap().containsKey("requestType")
                 & !req.getParameterMap().containsKey("requestTypes")) {
             buf.append(" class='active'");
