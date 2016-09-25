@@ -152,7 +152,6 @@ public final class Constants {
     public static final int SHUFFLING_BLOCK = 1;
     public static final int CHECKSUM_BLOCK_17 = Integer.MAX_VALUE;
     public static final int CHECKSUM_BLOCK_18 = Integer.MAX_VALUE;
-    public static final int BLOCKTIME_HALVING_BLOCK = 120300;
     public static final int LAST_CHECKSUM_BLOCK = 0;
     public static final int LAST_KNOWN_BLOCK = 0;
 
