@@ -468,22 +468,20 @@ final class BlockImpl implements Block {
                 baseTarget = twofoldCurBaseTarget;
             }
 
-        } else if(previousBlock.getHeight() > Constants.BLOCKTIME_HALVING_BLOCK){
-            if (previousBlock.getHeight() % 2 == 0) {
-                BlockImpl block = BlockDb.findBlockAtHeight(previousBlock.getHeight() - 2);
-                int blocktimeAverage = (this.timestamp - block.timestamp) / 3;
-                if (blocktimeAverage > 30) {
-                    baseTarget = (prevBaseTarget * Math.min(blocktimeAverage, Constants.MAX_BLOCKTIME_LIMIT_2)) / 30;
-                } else {
-                    baseTarget = prevBaseTarget - prevBaseTarget * Constants.BASE_TARGET_GAMMA
-                            * (30 - Math.max(blocktimeAverage, Constants.MIN_BLOCKTIME_LIMIT_2)) / 6000;
-                }
-                if (baseTarget < 0 || baseTarget > Constants.MAX_BASE_TARGET_2) {
-                    baseTarget = Constants.MAX_BASE_TARGET_2;
-                }
-                if (baseTarget < Constants.MIN_BASE_TARGET_2) {
-                    baseTarget = Constants.MIN_BASE_TARGET_2;
-                }
+        } else if(previousBlock.getHeight() > Constants.BLOCKTIME_HALVING_BLOCK && previousBlock.getHeight() % 2 == 0){
+            BlockImpl block = BlockDb.findBlockAtHeight(previousBlock.getHeight() - 2);
+            int blocktimeAverage = (this.timestamp - block.timestamp) / 3;
+            if (blocktimeAverage > 30) {
+                baseTarget = (prevBaseTarget * Math.min(blocktimeAverage, Constants.MAX_BLOCKTIME_LIMIT_2)) / 30;
+            } else {
+                baseTarget = prevBaseTarget - prevBaseTarget * Constants.BASE_TARGET_GAMMA
+                        * (30 - Math.max(blocktimeAverage, Constants.MIN_BLOCKTIME_LIMIT_2)) / 6000;
+            }
+            if (baseTarget < 0 || baseTarget > Constants.MAX_BASE_TARGET_2) {
+                baseTarget = Constants.MAX_BASE_TARGET_2;
+            }
+            if (baseTarget < Constants.MIN_BASE_TARGET_2) {
+                baseTarget = Constants.MIN_BASE_TARGET_2;
             }
         } else if (previousBlock.getHeight() % 2 == 0) {
             BlockImpl block = BlockDb.findBlockAtHeight(previousBlock.getHeight() - 2);
