@@ -1,4 +1,4 @@
-Copyright © 2013-2016 The Nxt Core Developers.
+Copyright © 2016
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 2,
@@ -13,12 +13,11 @@ You should have received a copy of the GNU General Public License version 2
 along with this program in the file COPYING.txt. If not, see
 <https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt>.
 
-
-The Nxt core development team will consider granting exceptions to allow use of
-this software under a different license on a case by case basis. Please see the
-DEVELOPER-AGREEMENT.txt file describing the developer agreement on copyright
-and licensing policies, and the AUTHORS.txt file for individual copyright holder
-information.
+The GEC software is forked from NXT version 1.8.2. The copyright to the modifications
+to NXT 1.8.2 is granted by the modifying contributors to Future World, Inc.
+on the condition of marking the delivery of phase I of the project
+"Blockchain Marketplace and Rewards" as complete, upon
+the full payment of phase I and upon the full payment necessary to start Phase II.
 
 The client UI component of this software, located under /html/ui, is distributed
 under the MIT license, a copy of which is available under /html/ui/LICENSE.txt.
@@ -51,4 +50,3 @@ those parts of the code only, is included below:
    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
    THE SOFTWARE.
-
