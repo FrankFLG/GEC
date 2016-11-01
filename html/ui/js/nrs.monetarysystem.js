@@ -1037,7 +1037,7 @@ var NRS = (function (NRS, $, undefined) {
             "desiredPosition": 40,
             "depends": { tags: [ NRS.constants.API_TAGS.MS ] }
         };
-        NRS.addTreeviewSidebarMenuItem(options);
+        //NRS.addTreeviewSidebarMenuItem(options);
         options = {
             "titleHTML": '<span data-i18n="currencies">Currencies</span>',
             "type": 'PAGE',
