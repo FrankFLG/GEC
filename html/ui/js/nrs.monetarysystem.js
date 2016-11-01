@@ -586,7 +586,7 @@ var NRS = (function (NRS, $, undefined) {
         }
 
         $("#currency_order_description").html(description);
-        $("#currency_order_total").html(totalNXT + " NXT");
+        $("#currency_order_total").html(totalNXT + " GEC");
 
         var totalTooltip = $("#currency_order_total_tooltip");
         if (units != "1") {
@@ -1374,7 +1374,7 @@ var NRS = (function (NRS, $, undefined) {
             "currency": currency
         }, function (response) {
             var currentReservePerUnitNQT = new BigInteger(response.currentReservePerUnitNQT).multiply(new BigInteger("" + Math.pow(10, response.decimals)));
-            $("#claimRate").html(NRS.formatAmount(currentReservePerUnitNQT) + " [NXT/" + currencyCode + "]");
+            $("#claimRate").html(NRS.formatAmount(currentReservePerUnitNQT) + " [GEC/" + currencyCode + "]");
         });
 
         $("#claim_currency_decimals").val($invoker.data("decimals"));

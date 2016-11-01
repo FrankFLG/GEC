@@ -26,7 +26,7 @@ var NRS = (function(NRS, $) {
 
     var getCoins = function() {
         var coins = [];
-        for (var i=0; i<3; i++) {
+        for (var i=0; i<1; i++) {
             coins.push(NRS.settings["exchange_coin" + i]);
         }
         return coins;
@@ -298,30 +298,6 @@ var NRS = (function(NRS, $) {
         });
     };
 
-    function renderRecentTable() {
-        apiCall('recenttx/50', {}, 'GET', function (data) {
-            NRS.logConsole("recent");
-            var rows = "";
-            if (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var transaction = data[i];
-                    if (String(transaction.curIn).escapeHTML() != "NXT" && String(transaction.curOut).escapeHTML() != "NXT") {
-                        continue;
-                    }
-                    rows += "<tr>";
-                    rows += "<td>" + String(transaction.curIn).escapeHTML() + "</td>";
-                    rows += "<td>" + String(transaction.curOut).escapeHTML() + "</td>";
-                    rows += "<td>" + NRS.formatTimestamp(1000 * transaction.timestamp, false, true) + "</td>";
-                    rows += "<td>" + transaction.amount + "</td>";
-                    rows += "</tr>";
-                }
-            }
-            NRS.logConsole("recent rows " + rows);
-            var table = $("#p_shape_shift_table");
-            table.find("tbody").empty().append(rows);
-            NRS.dataLoadFinished(table);
-        });
-    }
 
     function renderNxtLimit() {
         apiCall('limit/nxt_btc', {}, 'GET', function (data) {
@@ -333,6 +309,19 @@ var NRS = (function(NRS, $) {
         });
     }
 
+    function renderBTCAddress(){
+        var account = NRS.accountRS;
+        apiCall('getAddress', {account:account}, 'GET', function (data){
+               $('#btc_address').val(String(data.address));
+               NRS.sendRequestQRCode("#qr_code", data.address, 125, 125);
+           });
+
+        apiCall('getStatus', {}, 'GET', function(data) {
+            $('#gec_exchange_status').html(String((data && data.suspended) ? "SUSPENDED" : "ACTIVE"));
+            $('#currencyCode').html(String(data && data.currencyCode));
+        });
+    }
+
     function loadCoins() {
         var inputFields = [];
         inputFields.push($('#shape_shift_coin_0'));
@@ -340,8 +329,6 @@ var NRS = (function(NRS, $) {
         inputFields.push($('#shape_shift_coin_2'));
         var selectedCoins = [];
         selectedCoins.push(NRS.settings.exchange_coin0);
-        selectedCoins.push(NRS.settings.exchange_coin1);
-        selectedCoins.push(NRS.settings.exchange_coin2);
         apiCall('getcoins', {}, 'GET', function (data) {
             SUPPORTED_COINS = data;
             for (var i = 0; i < inputFields.length; i++) {
@@ -368,21 +355,23 @@ var NRS = (function(NRS, $) {
         var exchangePageHeader = $("#exchange_page_header");
         var exchangePageContent = $("#exchange_page_content");
         if (NRS.settings.exchange != "1") {
-			exchangeDisabled.show();
-            exchangePageHeader.hide();
-            exchangePageContent.hide();
-            return;
+            NRS.updateSettings("exchange", "1");
+			//exchangeDisabled.show();
+            //exchangePageHeader.hide();
+            //exchangePageContent.hide();
+            //return;
 		}
         exchangeDisabled.hide();
         exchangePageHeader.show();
         exchangePageContent.show();
         NRS.pageLoading();
-        loadCoins();
-        renderNxtLimit();
-        renderExchangeTable("buy");
-        renderExchangeTable("sell");
-        renderMyExchangesTable();
-        renderRecentTable();
+        //loadCoins();
+        //renderNxtLimit();
+        //renderExchangeTable("buy");
+        //renderExchangeTable("sell");
+        renderBTCAddress();
+        //renderMyExchangesTable();
+        //renderRecentTable();
         NRS.pageLoaded();
         setTimeout(refreshPage, 60000);
     };
@@ -408,11 +397,9 @@ var NRS = (function(NRS, $) {
     NRS.getFundAccountLink = function() {
         return "<div class='callout callout-danger'>" +
             "<span>" + $.t("fund_account_warning_1") + "</span><br>" +
-            "<span>" + $.t("fund_account_warning_2") + "</span><br>" +
-            "<span>" + $.t("fund_account_warning_3") + "</span><br>" +
             "</div>" +
-            "<a href='#' class='btn btn-xs btn-default' data-toggle='modal' data-target='#m_send_amount_sell_modal' " +
-            "data-pair='BTC_NXT'>" + $.t("fund_account_message") + "</a>";
+            "<a href='#' class='btn btn-xs btn-default goto-page' data-page='exchange' " +
+            ">" + $.t("fund_account_message") + "</a>";
     };
 
     $('.coin-select').change(function() {
@@ -436,11 +423,11 @@ var NRS = (function(NRS, $) {
         NRS.logConsole("modal invoked pair " + pair + " coin " + coin);
         $("#m_shape_shift_buy_title").html($.t("exchange_nxt_to_coin_shift", { coin: coin }));
         $("#m_shape_shift_buy_min").val(invoker.data("min"));
-        $("#m_shape_shift_buy_min_coin").html("NXT");
+        $("#m_shape_shift_buy_min_coin").html("GEC");
         $("#m_shape_shift_buy_max").val(invoker.data("max"));
-        $("#m_shape_shift_buy_max_coin").html("NXT");
+        $("#m_shape_shift_buy_max_coin").html("GEC");
         $("#m_shape_shift_buy_rate").val(invoker.data("rate"));
-        $("#m_shape_shift_buy_rate_text").html("NXT/" + coin);
+        $("#m_shape_shift_buy_rate_text").html("GEC/" + coin);
         $("#m_shape_shift_withdrawal_address_coin").html(coin);
         $("#m_shape_shift_buy_fee").val(invoker.data("fee"));
         $("#m_shape_shift_buy_fee_coin").html(coin);
@@ -510,7 +497,7 @@ var NRS = (function(NRS, $) {
         NRS.logConsole("modal invoked pair " + pair + " coin " + coin);
         $("#m_send_amount_buy_title").html($.t("exchange_nxt_to_coin_send_amount", { coin: coin }));
         $("#m_send_amount_buy_withdrawal_amount_coin").html(coin);
-        $("#m_send_amount_buy_rate_text").html("NXT/" + coin);
+        $("#m_send_amount_buy_rate_text").html("GEC/" + coin);
         $("#m_send_amount_withdrawal_address_coin").html(coin + " address");
         $("#m_send_amount_buy_fee_coin").html(coin);
         $("#m_send_amount_buy_pair").val(pair);
@@ -629,9 +616,9 @@ var NRS = (function(NRS, $) {
                 $("#m_shape_shift_sell_max").val(data.max);
                 $("#m_shape_shift_sell_max_coin").html(coin);
                 $("#m_shape_shift_sell_rate").val(data.rate);
-                $("#m_shape_shift_sell_rate_text").html(coin + "/NXT");
+                $("#m_shape_shift_sell_rate_text").html(coin + "/GEC");
                 $("#m_shape_shift_sell_fee").val(data.fee);
-                $("#m_shape_shift_sell_fee_coin").html("NXT");
+                $("#m_shape_shift_sell_fee_coin").html("GEC");
                 $("#m_shape_shift_sell_pair").val(pair);
                 var publicKey = NRS.publicKey;
                 if (publicKey == "" && NRS.accountInfo) {
@@ -710,9 +697,9 @@ var NRS = (function(NRS, $) {
         var coin = pairToCoin(pair);
         NRS.logConsole("modal invoked pair " + pair + " coin " + coin);
         $("#m_send_amount_sell_title").html($.t("exchange_coin_to_nxt_send_amount", { coin: coin }));
-        $("#m_send_amount_sell_rate_text").html("NXT/" + coin);
-        $("#m_send_amount_sell_fee_coin").html("NXT");
-        $("#m_send_amount_sell_withdrawal_amount_coin").html("NXT");
+        $("#m_send_amount_sell_rate_text").html("GEC/" + coin);
+        $("#m_send_amount_sell_fee_coin").html("GEC");
+        $("#m_send_amount_sell_withdrawal_amount_coin").html("GEC");
         $("#m_send_amount_sell_deposit_amount_coin").html(coin);
         $("#m_send_amount_sell_deposit_address").html("");
         $("#m_send_amount_sell_qr_code").html("");

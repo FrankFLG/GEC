@@ -99,11 +99,11 @@ public final class SendMoney extends UserServlet.UserRequestHandler {
 
             return response;
 
-        } else if (feeNQT < Constants.ONE_NXT || feeNQT > Constants.MAX_BALANCE_NQT) {
+        } else if (feeNQT < Constants.ONE_NXT/100 || feeNQT > Constants.MAX_BALANCE_NQT) {
 
             JSONObject response = new JSONObject();
             response.put("response", "notifyOfIncorrectTransaction");
-            response.put("message", "\"Fee\" must be at least 1 NXT!");
+            response.put("message", "\"Fee\" must be at least 0.01 GEC!");
             response.put("recipient", recipientValue);
             response.put("amountNXT", amountValue);
             response.put("feeNXT", feeValue);

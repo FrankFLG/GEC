@@ -194,7 +194,7 @@ public interface Appendix {
             return new Message(attachmentData);
         }
 
-        private static final Fee MESSAGE_FEE = new Fee.SizeBasedFee(0, Constants.ONE_NXT, 32) {
+        private static final Fee MESSAGE_FEE = new Fee.SizeBasedFee(0, Constants.ONE_NXT / 100, 32) {
             @Override
             public int getSize(TransactionImpl transaction, Appendix appendage) {
                 return ((Message)appendage).getMessage().length;
@@ -301,7 +301,7 @@ public interface Appendix {
 
         private static final String appendixName = "PrunablePlainMessage";
 
-        private static final Fee PRUNABLE_MESSAGE_FEE = new Fee.SizeBasedFee(Constants.ONE_NXT/10) {
+        private static final Fee PRUNABLE_MESSAGE_FEE = new Fee.SizeBasedFee(Constants.ONE_NXT/1000) {
             @Override
             public int getSize(TransactionImpl transaction, Appendix appendix) {
                 return appendix.getFullSize();
@@ -472,7 +472,7 @@ public interface Appendix {
 
     abstract class AbstractEncryptedMessage extends AbstractAppendix {
 
-        private static final Fee ENCRYPTED_MESSAGE_FEE = new Fee.SizeBasedFee(Constants.ONE_NXT, Constants.ONE_NXT, 32) {
+        private static final Fee ENCRYPTED_MESSAGE_FEE = new Fee.SizeBasedFee(Constants.ONE_NXT / 100, Constants.ONE_NXT / 100, 32) {
             @Override
             public int getSize(TransactionImpl transaction, Appendix appendage) {
                 return ((AbstractEncryptedMessage)appendage).getEncryptedDataLength() - 16;
@@ -586,7 +586,7 @@ public interface Appendix {
 
         private static final String appendixName = "PrunableEncryptedMessage";
 
-        private static final Fee PRUNABLE_ENCRYPTED_DATA_FEE = new Fee.SizeBasedFee(Constants.ONE_NXT/10) {
+        private static final Fee PRUNABLE_ENCRYPTED_DATA_FEE = new Fee.SizeBasedFee(Constants.ONE_NXT/1000) {
             @Override
             public int getSize(TransactionImpl transaction, Appendix appendix) {
                 return appendix.getFullSize();
@@ -1223,7 +1223,7 @@ public interface Appendix {
             super(buffer, transactionVersion);
             finishHeight = buffer.getInt();
             params = new PhasingParams(buffer);
-            
+
             byte linkedFullHashesSize = buffer.get();
             if (linkedFullHashesSize > 0) {
                 linkedFullHashes = new byte[linkedFullHashesSize][];

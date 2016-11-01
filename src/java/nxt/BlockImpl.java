@@ -467,20 +467,21 @@ final class BlockImpl implements Block {
             if (baseTarget > twofoldCurBaseTarget) {
                 baseTarget = twofoldCurBaseTarget;
             }
-        } else if (previousBlock.getHeight() % 2 == 0) {
+
+        } else if(previousBlock.getHeight() % 2 == 0){
             BlockImpl block = BlockDb.findBlockAtHeight(previousBlock.getHeight() - 2);
             int blocktimeAverage = (this.timestamp - block.timestamp) / 3;
-            if (blocktimeAverage > 60) {
-                baseTarget = (prevBaseTarget * Math.min(blocktimeAverage, Constants.MAX_BLOCKTIME_LIMIT)) / 60;
+            if (blocktimeAverage > 30) {
+                baseTarget = (prevBaseTarget * Math.min(blocktimeAverage, Constants.MAX_BLOCKTIME_LIMIT_2)) / 30;
             } else {
                 baseTarget = prevBaseTarget - prevBaseTarget * Constants.BASE_TARGET_GAMMA
-                        * (60 - Math.max(blocktimeAverage, Constants.MIN_BLOCKTIME_LIMIT)) / 6000;
+                        * (30 - Math.max(blocktimeAverage, Constants.MIN_BLOCKTIME_LIMIT_2)) / 6000;
             }
-            if (baseTarget < 0 || baseTarget > Constants.MAX_BASE_TARGET_2) {
-                baseTarget = Constants.MAX_BASE_TARGET_2;
+            if (baseTarget < 0 || baseTarget > Constants.MAX_BASE_TARGET_3) {
+                baseTarget = Constants.MAX_BASE_TARGET_3;
             }
-            if (baseTarget < Constants.MIN_BASE_TARGET) {
-                baseTarget = Constants.MIN_BASE_TARGET;
+            if (baseTarget < Constants.MIN_BASE_TARGET_2) {
+                baseTarget = Constants.MIN_BASE_TARGET_2;
             }
         } else {
             baseTarget = prevBaseTarget;

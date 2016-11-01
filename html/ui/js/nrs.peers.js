@@ -73,7 +73,7 @@ var NRS = (function(NRS, $) {
 						connected++;
 					}
 
-					var versionToCompare = (!NRS.isTestNet ? NRS.nrsVersion.versionNr : NRS.state.version);
+					var versionToCompare = (!NRS.isTestNet ? (NRS.nrsVersino&&NRS.nrsVersion.versionNr) : NRS.state.version);
 
 					if (NRS.versionCompare(peer.version, versionToCompare) >= 0) {
 						upToDate++;
@@ -103,7 +103,6 @@ var NRS = (function(NRS, $) {
 					rows += "</td>";
 					rows += "</tr>";
 				}
-
 				$("#peers_uploaded_volume").html(NRS.formatVolume(uploaded)).removeClass("loading_dots");
 				$("#peers_downloaded_volume").html(NRS.formatVolume(downloaded)).removeClass("loading_dots");
 				$("#peers_connected").html(connected).removeClass("loading_dots");

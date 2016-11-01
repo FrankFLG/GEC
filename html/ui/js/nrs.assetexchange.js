@@ -115,13 +115,13 @@ var NRS = (function (NRS, $, undefined) {
             };
         }
 
-        if (!/^\d+$/.test(data.id) && !/^NXT\-/i.test(data.id)) {
+        if (!/^\d+$/.test(data.id) && !/^GEC\-/i.test(data.id)) {
             return {
                 "error": $.t("error_asset_or_account_id_invalid")
             };
         }
 
-        if (/^NXT\-/i.test(data.id)) {
+        if (/^GEC\-/i.test(data.id)) {
             NRS.sendRequest("getAssetsByIssuer", {
                 "account": data.id
             }, function (response) {
@@ -1022,7 +1022,7 @@ var NRS = (function (NRS, $, undefined) {
         }
 
         $("#asset_order_description").html(description);
-        $("#asset_order_total").html(totalNXT + " NXT");
+        $("#asset_order_total").html(totalNXT + " GEC");
 
         var assetOrderTotalTooltip = $("#asset_order_total_tooltip");
         if (quantity != "1") {

@@ -823,7 +823,7 @@ var NRS = (function(NRS, $, undefined) {
 			};
 		}
 
-		if (!/^\d+$/.test(data.id) && !/^NXT\-/i.test(data.id)) {
+		if (!/^\d+$/.test(data.id) && !/^GEC\-/i.test(data.id)) {
 			return {
 				"error": $.t("error_poll_id_invalid")
 			};
